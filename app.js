@@ -26,10 +26,10 @@ const limiter = rateLimit({
   max: 30,
 });
 
-const { PORT = 3000, NODE_ENV = 'development' } = process.env;
+const { PORT = 3000, NODE_ENV = 'development', DB_ADDRESS = 'mongodb://localhost:27017/exploremoviesdb' } = process.env;
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/exploremoviesdb', {
+mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,

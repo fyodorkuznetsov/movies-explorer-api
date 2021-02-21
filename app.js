@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
+const { limiter } = require('./middlewares/limiter');
 const NotFoundError = require('./errors/not-found-err');
 
 const userAuthRouter = require('./routes/usersAuth');
@@ -20,11 +20,6 @@ const corsOptions = {
   origin: ['https://smith-movies.students.nomoredomains.monster', 'http://smith-movies.students.nomoredomains.monster'],
   credentials: true,
 };
-
-const limiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: 30,
-});
 
 const { PORT = 3000, NODE_ENV = 'development', DB_ADDRESS = 'mongodb://localhost:27017/exploremoviesdb' } = process.env;
 const app = express();

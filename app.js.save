@@ -17,7 +17,7 @@ const { auth } = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const corsOptions = {
-  origin: 'https://smith-movies.students.nomoredomains.monster',
+  origin: ['https://smith-movies.students.nomoredomains.monster', 'http://smith-movies.students.nomoredomains.monster', '],
   credentials: true,
 };
 
@@ -31,17 +31,10 @@ mongoose.connect(DB_ADDRESS, {
   useUnifiedTopology: true,
 });
 
-//if (NODE_ENV === 'production') {
-app.use(limiter);
-app.use(cors(corsOptions));
-//}
-//app.use(function(req, res, next) {
-//  res.header("Access-Control-Allow-Origin", "*");
-//res.header("Access-Control-Allow-Credentials", "true");
-//  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//  next();
-//});
-
+if (NODE_ENV === 'production') {
+  app.use(cors(corsOptions));
+  app.use(limiter);
+}
 app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.json());

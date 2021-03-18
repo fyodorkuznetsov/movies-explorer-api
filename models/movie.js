@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    required: true,
   },
   director: {
     type: String,
@@ -15,7 +14,6 @@ const movieSchema = new mongoose.Schema({
   },
   year: {
     type: String,
-    required: true,
   },
   description: {
     type: String,
@@ -24,35 +22,12 @@ const movieSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
-    validate: {
-      validator(v) {
-        const pattern = /^https?:\/\/([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*#?$/;
-        return pattern.test(v);
-      },
-      message: 'Некорректный формат ссылки на постер',
-    },
   },
   trailer: {
-    type: String,
-    required: true,
-    validate: {
-      validator(v) {
-        const pattern = /^https?:\/\/([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*#?$/;
-        return pattern.test(v);
-      },
-      message: 'Некорректный формат ссылки на трейлер',
-    },
+    type: String
   },
   thumbnail: {
     type: String,
-    required: true,
-    validate: {
-      validator(v) {
-        const pattern = /^https?:\/\/([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*#?$/;
-        return pattern.test(v);
-      },
-      message: 'Некорректный формат ссылки на превью',
-    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -69,7 +44,6 @@ const movieSchema = new mongoose.Schema({
   },
   nameEN: {
     type: String,
-    required: true,
   },
 });
 

@@ -7,17 +7,17 @@ const {
 
 movieRouter.post('/movies', celebrate({
   body: Joi.object().keys({
-    country: Joi.string().required(),
+country: Joi.string(),
     director: Joi.string().required(),
     duration: Joi.number().integer().required(),
-    year: Joi.string().required(),
+    year: Joi.string(),
     description: Joi.string().required(),
-    image: Joi.string().required().pattern(/^https?:\/\/([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*#?$/),
-    trailer: Joi.string().required().pattern(/^https?:\/\/([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*#?$/),
-    thumbnail: Joi.string().required().pattern(/^https?:\/\/([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*#?$/),
+    image: Joi.string(),
+    trailer: Joi.string(),
+    thumbnail: Joi.string(),
     movieId: Joi.number().integer().required(),
     nameRU: Joi.string().required(),
-    nameEN: Joi.string().required(),
+    nameEN: Joi.string(),
   }),
 }), createMovie);
 

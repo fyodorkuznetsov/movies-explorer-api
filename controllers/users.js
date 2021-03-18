@@ -26,7 +26,11 @@ module.exports.createUser = (req, res, next) => {
       name,
     }))
     .then((user) => {
-      res.status(201).send({
+	const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+      res.cookie('token', token, {
+        maxAge: 3600000000,
+        httpOnly: true,
+     }).status(201).send({
         data: {
           _id: user._id,
           email: user.email,
@@ -52,8 +56,10 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       res.cookie('token', token, {
-        maxAge: 3600000,
+	maxAge: 3600000000,
         httpOnly: true,
+sameSite: 'none',
+secure: true
       })
         .send({ token });
     })
@@ -64,7 +70,7 @@ module.exports.login = (req, res, next) => {
 
 /* выход */
 module.exports.logout = (req, res) => {
-  res.clearCookie('token');
+  res.clearCookie('token', {sameSite: 'none', secure: true});
   res.send({ loggedOut: true });
 };
 
